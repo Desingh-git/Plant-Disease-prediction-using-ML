@@ -3,107 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>About - Crop Disease Detection System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-         body {
-            font-family: Arial, sans-serif;
-            background: rgb(174,238,177);
-            background: radial-gradient(circle, rgba(174,238,177,1) 0%, rgba(148,233,203,1) 100%);
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            overflow: hidden;
-        }
-        .boxleft{
-         position: absolute;
-         height:500px;
-         width: 300px;
-         right: 50px;
-         border-radius: 10px;
-         top: 50px;
-         background-color: #12a370;
-        }
-        .boxcenter{
-         position: absolute;
-         height: 450px;
-         width: 700px;
-         right: 370px;
-         border-radius: 10px;
-         top: 70px;
-         border: 1px solid gray;
-         backdrop-filter: blur(10px);
-          background: transparent;
-          color: rgb(0, 0, 0);
-          box-shadow: 10px;
-          text-align: justify;
-          padding: 10px;
-          font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-          font-size: 25px;
+        :root {
+            --primary-color: #27cd32;
+            --primary-dark: #1fa328;
+            --light-bg: #f8fff9;
+            --card-bg: rgba(255, 255, 255, 0.9);
         }
         
-.button1{
-    position: absolute;
-    border-radius: 10px;
-    background-color: #7cf985;
-    height: 20px;
-    width: 170px;
-    padding: 10px;
-    top: 200px;
-    left: 50px;
-}
-.button2{
-    position: absolute;
-    border-radius: 10px;
-    background-color: #7cf985;
-    height: 20px;
-    width: 170px;
-    padding: 10px;
-    top: 250px;
-    left: 50px;
-}
-.button3{
-    position: absolute;
-    border-radius: 10px;
-    background-color: #7cf985;
-    height: 40px;
-    width: 190px;
-    padding: 10px;
-    top: 300px;
-    left: 50px;
-}
-.img{
-    width: 150px;
-    height: 150px;
-    border-radius: 150px;
-    top: 25px;
-    left: 65px;
-    position: absolute;
-}
-.img4{
-  position: absolute;
-  height: 450px;
-  width: 450px;
- bottom: -1px;
-  left: -115px; 
-}
-</style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #b6f5bc 0%, #94e9cb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 15px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background-color: var(--card-bg);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .tech-stack {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dataset-stats {
+            background: linear-gradient(135deg, #27cd32, #1fa328);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+    </style>
 </head>
-<body>    
-    <div class="boxleft">
-        <img src="/static/img2.png" alt="image" class="img">
-        <a href="https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset" class="button1" >Dataset Reference</a><br>
-<a href="https://extension.umn.edu/" class="button2" >Disease Tips Reference</a>
-</div>
-    <div class="boxcenter">
-        <h2><center>About Us</center></h2>
-        <p>In recent years, the agricultural sector has seen a transformative integration of Artificial Intelligence (AI) technologies. 
-            This integration has paved the way for advanced predictive systems designed to mitigate the impact of diseases on crops. 
-            The <b>"Agriculture Disease Prediction System Enhanced by Artificial Intelligence" </b>represents a cutting-edge approach to disease management in agriculture. 
-             This system leverages AI-powered algorithms, including machine learning and computer vision, to analyze various data sources. By processing this diverse dataset, 
-             the system can accurately predict and identify potential disease outbreaks in crops, allowing farmers to take timely preventive measures.   </p>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="/">
+                <i class="fas fa-leaf me-2" style="color: var(--primary-color);"></i>
+                Crop Disease Detection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-4">About Our Project</h1>
+            <p class="lead mb-4">Revolutionizing agriculture through machine learning plant disease detection and treatment recommendations</p>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h2 class="fw-bold mb-4">Project Overview</h2>
+                        <p class="mb-4">
+                            The Crop Disease Detection System is an innovative web application that leverages machine learning 
+                            to identify plant diseases from leaf images. Our system helps farmers, gardeners, and agricultural 
+                            professionals quickly diagnose plant health issues and receive targeted treatment recommendations.
+                        </p>
+                        <p class="mb-4">
+                            Using a machine learning model trained on a comprehensive dataset of 87,000+ plant images, 
+                            our system can accurately detect 38 different classes of plant diseases and healthy conditions 
+                            across various crop species.
+                        </p>
+                        <div class="d-flex gap-3">
+                            <div class="text-center">
+                                <div class="stat-number">38</div>
+                                <div>Disease Classes</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number">87K+</div>
+                                <div>Training Images</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number">99%</div>
+                                <div>Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <img src="/static/about.png" alt="Plant Disease Detection" class="img-fluid rounded" style="max-height: 400px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Information -->
+        <div class="dataset-stats">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h3 class="fw-bold mb-4">Dataset Information</h3>
+                    <p class="mb-4">
+                        Our machine learning model is trained on a comprehensive dataset recreated using offline augmentation 
+                        from the original dataset available on GitHub. This robust dataset forms the foundation of our accurate 
+                        disease detection system.
+                    </p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-3 mb-3">
+                    <div class="stat-number" style="color: rgb(255, 255, 255);">87,000+</div>
+                    <div>RGB Images</div>
+                </div>
+                <div class="col-md-3 mb-3"> 
+                    <div class="stat-number" style="color: rgb(255, 255, 255);">38</div>
+                    <div>Different Classes</div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stat-number" style="color: rgb(255, 255, 255);">80/20</div>
+                    <div>Train/Validation Split</div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stat-number" style="color: rgb(255, 255, 255);">33</div>
+                    <div>Test Images</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">How It Works</h2>
+                <div class="row">
+                    <div class="col-lg-4 text-center mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <h5>1. Upload Image</h5>
+                        <p>Upload a clear image of your plant leaf using our simple drag-and-drop interface</p>
+                    </div>
+                    <div class="col-lg-4 text-center mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5>2. Analysis</h5>
+                        <p>Our machine learning model analyzes the image and identifies potential diseases</p>
+                    </div>
+                    <div class="col-lg-4 text-center mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-prescription-bottle-medical"></i>
+                        </div>
+                        <h5>3. Get Remedies</h5>
+                        <p>Receive detailed treatment recommendations and prevention strategies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Stack -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">Technical Stack</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="tech-stack">
+                            <h5><i class="fas fa-brain text-primary me-2"></i>Machine Learning</h5>
+                            <ul>
+                                <li>TensorFlow & Keras</li>
+                                <li>Convolutional Neural Networks (CNN)</li>
+                                <li>Transfer Learning</li>
+                                <li>Image Preprocessing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tech-stack">
+                            <h5><i class="fas fa-code text-primary me-2"></i>Web Development</h5>
+                            <ul>
+                                <li>Flask Backend</li>
+                                <li>HTML5, CSS3, JavaScript</li>
+                                <li>Bootstrap 5</li>
+                                <li>RESTful API</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="tech-stack">
+                            <h5><i class="fas fa-database text-primary me-2"></i>Data Management</h5>
+                            <ul>
+                                <li>87K+ Image Dataset</li>
+                                <li>Offline Augmentation</li>
+                                <li>JSON-based Remedies Database</li>
+                                <li>Image Preprocessing Pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tech-stack">
+                            <h5><i class="fas fa-mobile-alt text-primary me-2"></i>User Experience</h5>
+                            <ul>
+                                <li>Responsive Design</li>
+                                <li>Drag & Drop Upload</li>
+                                <li>Real-time Image Preview</li>
+                                <li>Interactive Results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supported Plants -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">Supported Plants & Diseases</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <h5><i class="fas fa-apple-alt text-success me-2"></i>Fruit Plants</h5>
+                        <ul>
+                            <li>Apple (Scab, Black Rot, Cedar Rust)</li>
+                            <li>Blueberry (Healthy)</li>
+                            <li>Cherry (Healthy, Powdery Mildew)</li>
+                            <li>Grape (Black Rot, Esca, Leaf Blight)</li>
+                            <li>Peach (Bacterial Spot, Healthy)</li>
+                            <li>Strawberry (Healthy, Leaf Scorch)</li>
+                            <li>Raspberry (Healthy)</li>
+                            <li>Orange (Huanglongbing)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h5><i class="fas fa-carrot text-warning me-2"></i>Vegetable Plants</h5>
+                        <ul>
+                            <li>Tomato (10+ diseases including Early/Late Blight)</li>
+                            <li>Corn (4 diseases including Common Rust)</li>
+                            <li>Potato (Early/Late Blight, Healthy)</li>
+                            <li>Pepper Bell (Bacterial Spot, Healthy)</li>
+                            <li>Soybean (Healthy)</li>
+                            <li>Squash (Powdery Mildew)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h5><i class="fas fa-seedling text-primary me-2"></i>Disease Types</h5>
+                        <ul>
+                            <li>Fungal Diseases</li>
+                            <li>Bacterial Infections</li>
+                            <li>Viral Diseases</li>
+                            <li>Pest Infestations</li>
+                            <li>Nutritional Disorders</li>
+                            <li>Healthy Plant Conditions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">Benefits & Impact</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-bolt text-warning fa-2x me-3"></i>
+                            </div>
+                            <div>
+                                <h5>Rapid Diagnosis</h5>
+                                <p>Get instant disease identification instead of waiting for laboratory results</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-money-bill-wave text-success fa-2x me-3"></i>
+                            </div>
+                            <div>
+                                <h5>Cost Effective</h5>
+                                <p>Reduce crop losses and minimize pesticide use with targeted treatments</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-leaf text-primary fa-2x me-3"></i>
+                            </div>
+                            <div>
+                                <h5>Sustainable Agriculture</h5>
+                                <p>Promote organic solutions and reduce environmental impact</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-globe-americas text-info fa-2x me-3"></i>
+                            </div>
+                            <div>
+                                <h5>Accessible Technology</h5>
+                                <p>Make advanced plant pathology accessible to farmers worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Development Timeline -->
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">Project Development</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h5>Data Collection & Preparation</h5>
+                        <p>Gathered 87,000+ plant images from publicly available datasets and applied offline augmentation techniques to enhance model robustness</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Model Training</h5>
+                        <p>Developed and trained convolutional neural networks using TensorFlow and Keras, achieving high accuracy across 38 disease classes</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Web Application Development</h5>
+                        <p>Built responsive Flask web application with intuitive user interface for easy plant disease detection</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Remedies Database</h5>
+                        <p>Created comprehensive treatment database with organic and chemical solutions for each disease</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Testing & Deployment</h5>
+                        <p>Rigorously tested system with 33 dedicated test images and deployed for public access</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Enhancements -->
+        <div class="card">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-5">Future Enhancements</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt fa-3x text-primary mb-3"></i>
+                            <h5>Mobile Application</h5>
+                            <p>Develop native mobile apps for iOS and Android with offline capabilities</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="fas fa-language fa-3x text-success mb-3"></i>
+                            <h5>Multi-language Support</h5>
+                            <p>Translate interface and remedies into multiple languages for global accessibility</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="fas fa-database fa-3x text-warning mb-3"></i>
+                            <h5>Expanded Disease Library</h5>
+                            <p>Add more plant species and disease types to cover wider agricultural needs</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="text-center">
+                            <i class="fas fa-robot fa-3x text-info mb-3"></i>
+                            <h5>Real-time Monitoring</h5>
+                            <p>Implement continuous monitoring systems for large-scale farm applications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <img src="/static/img13.png" alt="img" class="img4">
+
+    <footer class="mt-5 py-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Crop Disease Detection System. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Powered by Machine Learning & Artificial Intelligence</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-  

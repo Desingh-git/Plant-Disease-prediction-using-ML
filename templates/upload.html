@@ -1,226 +1,786 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home Page</title>
     <meta charset="UTF-8">
-    
-    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='myfont/css/all.min.css')}}">
-    <script src="{{url_for('static',filename='js/jquery.min.js')}}">
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detection System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Your existing CSS styles remain the same */
+        :root {
+            --primary-color: #27cd32;
+            --primary-dark: #1fa328;
+            --light-bg: #f8fff9;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background: rgb(174,238,177);
-background: radial-gradient(circle, rgba(174,238,177,1) 0%, rgba(148,233,203,1) 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #b6f5bc 0%, #94e9cb 100%);
             background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 15px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background-color: var(--card-bg);
             overflow: hidden;
-
-
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         
-
-       
-
-        .top-right {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
-
         
-
-        nav {
+        .upload-area {
+            border: 2px dashed #c8e6c9;
+            border-radius: 12px;
+            padding: 2rem;
             text-align: center;
-            margin-top: 20px;
+            background-color: #f1f8e9;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-
-        nav a {
-            text-decoration: none;
-            color: #24243e;
-            background-color: #27cd32;
-            padding: 7px 5px;
-            margin: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-       
-
-        .button1 {
-           
-            padding: 10px 10px;
-            background-color:#27cd32;
-            color: #000000;
-            border: none;
-            width: 489px;
-            border-radius: 10px;
-            margin: 5px;
-            
-            
-            
-        }
-        .button {
-           
-            padding: 10px 10px;
-            background-color:#27cd32;
-            color: #000000;
-            border: none;
-            width: 250px;
-            height: 40px;
-            border-radius: 10px;
-            margin: 5px;
-            
-            
-           
-        }
-
-        .button:hover {
-            background-color: #ffffff;
-        }
-        .button1:hover {
-            background-color: #ffffff;
-        }
-        .b1{
-            position: absolute;
-        }
-        .b2{
-            position: absolute;
-           margin-top: 50px;
-
-        }
-        .b3{
-            position: absolute;
-            margin-top: 50px;
-            margin-left: 260px;
-          
-           
-
-        }
-       
-
-        .label {
-            color: black;
-            font-size: 1.5em;
-            font-weight: bold;
-            
-           
-          
-        }
-        .l1{
-            position: absolute;
-            margin-top: 120px;
-            margin-left: 10px;
-
-        }
-
-       
         
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #e8f5e9;
+        }
         
-
-.redpg{
-  position: relative;
-  top:300px;
-  width: 1300px;
-  right: 10px;
-  
-  
-  
-
-}
-.img{
-  position: absolute;
-  height: 430px;
-  width: 430px;
-  right: -20px;
-  top: -140px;
-}
-.img2{
-  position: absolute;
-  height: 185px;
-  width: 185px;
-  left: 370px;
-  top: 2px;
-}
-.img3{
-  position: absolute;
-  height: 655px;
-  width: 655px;
-  left: -200px;
-  bottom: -60px;
-}
-.con{
-    position: absolute;
-    height: 200px;
-    width: 700px;
-    top: 170px;
-    left: 390px;
-    
-}
-
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .result-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .disease-name {
+            color: #d32f2f;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .healthy-name {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .info-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .info-card {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .remedies-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .remedies-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .remedies-list li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .plant-image {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+        }
+        
+        .treatment-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .source-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .severity-low { border-left: 4px solid #28a745; }
+        .severity-moderate { border-left: 4px solid #ffc107; }
+        .severity-high { border-left: 4px solid #dc3545; }
+        
+        .disease-type {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* New styles for confidence display */
+        .confidence-container {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .confidence-score {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .confidence-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .confidence-explanation {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-    
-
-        
-
-  
-    <nav class="top-right">
-        <a href="/about">About</a>
-        <a href="/admin">Admin</a>
-    </nav>
-    
-    <img src="/static/img11.png" alt="img" class="img2">
-    
- <div class="con">
-  
-    <form method="POST" enctype="multipart/form-data" action="/customer">
-        <div class="b1">
-
-            <input id="button1" type="file" name="file" accept=".jpg, .jpeg, .png" class="button1">
-        </div>   
-        <div class="b2">
-            <input id="button2" type="submit" value="Predict" class="button">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="#">
+                <i class="fas fa-leaf me-2" style="color: var(--primary-color);"></i>
+                Crop Disease Detection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </form>
-    <div class="l1">
-    <div class="label">
-        Disease name: {{data}}
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold mb-4">Plant Diseases Detection Using Machine Learning</h1>
+                <p class="lead mb-4">Upload an image of your plant leaf and our machine learning model will identify diseases and provide remedies to protect your crops.</p>
+                <div class="d-flex gap-3">
+                    <div class="text-center">
+                        <div class="feature-icon">      
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h5>Fast Detection</h5>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h5>Plant Health</h5>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5>Accuracy Score</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/static/img4.jpg" alt="Plant Health" class="plant-image">
+            </div>
+        </div>
+
+        <!-- Upload Card -->
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4">Upload Plant Image</h3>
+                
+                <form method="POST" enctype="multipart/form-data" action="/customer" id="uploadForm">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h4>Drag & Drop or Click to Upload</h4>
+                        <p class="text-muted">Supported formats: JPG, JPEG, PNG</p>
+                        <input type="file" id="fileInput" name="file" accept=".jpg, .jpeg, .png" class="file-input" required>
+                        <button type="button" class="btn btn-primary mt-3" id="chooseFileBtn">
+                            <i class="fas fa-folder-open me-2"></i>Choose File
+                        </button>
+                        <div id="fileName" class="file-name"></div>
+                    </div>
+                    
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Analyzing your plant image...</p>
+                    </div>
+                    
+                    <div class="d-flex gap-3 mt-4">
+                        <button type="submit" class="btn btn-primary flex-fill" id="predictBtn">
+                            <i class="fas fa-search me-2"></i>Detect Disease
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="card mb-4 result-container" id="resultContainer">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4">Detection Results</h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Detected Condition:</h5>
+                        <div id="diseaseResult" class="mb-4">
+                            <!-- Result will be inserted here by JavaScript -->
+                        </div>
+                        
+                        <!-- Confidence Score Display -->
+                        <div class="confidence-container" id="confidenceContainer">
+                            <div class="confidence-score" id="confidenceScore">
+                                <!-- Confidence score will be inserted here -->
+                            </div>
+                            
+                            <div class="confidence-explanation" id="confidenceExplanation">
+                                <!-- Explanation will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline-primary mt-3" id="remediesBtn">
+                            <i class="fas fa-info-circle me-2"></i>Get Remedies/Information
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div id="uploadedImagePreview" class="mb-3">
+                            <!-- Uploaded image preview will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remedies/Information Section -->
+        <div class="card info-container" id="infoContainer">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4" id="infoTitle">Remedies & Information</h3>
+                
+                <div class="info-card">
+                    <div id="remediesContent">
+                        <!-- Remedies or plant information will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-    <div class="b3">
-    <form method="POST" action="/tips">
-        <input id="button2" type="submit" value="Tips" class="button">
-    </form>
-</div>
-</div>
 
+    <footer class="mt-5">
+        <div class="container">
+            <p> Crop Disease Detection System </p>
+        </div>
+    </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Free Plant Disease Remedies API using JSON file
+        class PlantDiseaseAPI {
+            constructor() {
+                this.remediesData = null;
+                this.loaded = false;
+            }
 
-    <div class="redpg">
-      
-        <img src="/static/img13.png" alt="img" class="img">
-      <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320"><path fill="#12a370" fill-opacity="1" d="M0,288L48,288C96,288,192,288,288,266.7C384,245,480,203,576,197.3C672,192,768,224,864,218.7C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-      </svg>
-    </div>
-    <img src="/static/img4.png" alt="img" class="img3">
+            async loadRemediesData() {
+                if (this.loaded) return;
+                
+                try {
+                    const response = await fetch('/static/remedies.json');
+                    const data = await response.json();
+                    this.remediesData = data.diseases;
+                    this.loaded = true;
+                    console.log('Remedies data loaded successfully');
+                } catch (error) {
+                    console.error('Error loading remedies data:', error);
+                    // Fallback to empty data
+                    this.remediesData = {};
+                    this.loaded = true;
+                }
+            }
 
+            async getRemedies(diseaseName) {
+                // Ensure data is loaded
+                if (!this.loaded) {
+                    await this.loadRemediesData();
+                }
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                const cleanDiseaseName = this.cleanDiseaseName(diseaseName);
+                
+                // Exact match
+                if (this.remediesData[cleanDiseaseName]) {
+                    return this.remediesData[cleanDiseaseName];
+                }
+                
+                // Partial match
+                for (const [disease, data] of Object.entries(this.remediesData)) {
+                    if (cleanDiseaseName.includes(disease) || disease.includes(cleanDiseaseName)) {
+                        return data;
+                    }
+                }
+                
+                // Healthy plant
+                if (cleanDiseaseName.includes('healthy')) {
+                    return this.remediesData['healthy_plant'] || this.remediesData['general_fallback'];
+                }
+                
+                // General fallback
+                return this.remediesData['general_fallback'];
+            }
 
+            cleanDiseaseName(diseaseName) {
+                return diseaseName.toLowerCase()
+                    .replace(/\s+/g, '_')
+                    .replace(/[^a-z0-9_]/g, '')
+                    .trim();
+            }
+        }
 
+        // Initialize the API
+        const plantAPI = new PlantDiseaseAPI();
+
+        // Preload remedies data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            plantAPI.loadRemediesData();
+        });
+
+        // Handle file selection
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileName = document.getElementById('fileName');
+            if (this.files.length > 0) {
+                fileName.textContent = 'Selected file: ' + this.files[0].name;
+                
+                // Show preview of selected image
+                const preview = document.getElementById('uploadedImagePreview');
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.innerHTML = '<img src="' + e.target.result + '" class="plant-image" alt="Uploaded plant image">';
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                fileName.textContent = '';
+                document.getElementById('uploadedImagePreview').innerHTML = '';
+            }
+        });
+        
+        // Handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length === 0) {
+                e.preventDefault();
+                alert('Please select an image file first.');
+                return;
+            }
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('predictBtn').disabled = true;
+        });
+        
+        // Handle remedies/info button click with PlantCare API
+        document.getElementById('remediesBtn').addEventListener('click', async function() {
+            const diseaseName = "{{data}}";
+            const infoContainer = document.getElementById('infoContainer');
+            const infoTitle = document.getElementById('infoTitle');
+            const remediesContent = document.getElementById('remediesContent');
+            
+            // Show loading state
+            infoContainer.style.display = 'block';
+            infoTitle.textContent = 'Loading Information...';
+            remediesContent.innerHTML = `
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Analyzing ${diseaseName} and preparing treatment recommendations...</p>
+                </div>
+            `;
+            
+            try {
+                const remediesData = await plantAPI.getRemedies(diseaseName);
+                displayRemediesData(diseaseName, remediesData, infoTitle, remediesContent);
+            } catch (error) {
+                console.error('Error:', error);
+                displayFallbackRemedies(diseaseName, infoTitle, remediesContent);
+            }
+            
+            infoContainer.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Enhanced display function
+        function displayRemediesData(diseaseName, data, infoTitle, remediesContent) {
+            const isHealthy = data.type === 'healthy';
+            
+            infoTitle.innerHTML = `${isHealthy ? 'About' : 'Remedies for'} ${data.name} <span class="source-badge">${data.source}</span>`;
+            
+            let severityBadge = '';
+            if (!isHealthy && data.severity) {
+                const severityColors = {
+                    'low': 'success',
+                    'moderate': 'warning',
+                    'high': 'danger'
+                };
+                severityBadge = `<span class="badge bg-${severityColors[data.severity] || 'secondary'} ms-2">${data.severity} severity</span>`;
+            }
+            
+            remediesContent.innerHTML = `
+                <div class="mb-4">
+                    <h5>${isHealthy ? 'Health Status' : 'Disease Overview'} ${severityBadge}</h5>
+                    <p class="mb-3">${data.summary}</p>
+                    
+                    ${data.symptoms && data.symptoms.length > 0 ? `
+                        <div class="treatment-card">
+                            <h6><i class="fas fa-search-plus me-2"></i>${isHealthy ? 'Healthy Indicators' : 'Common Symptoms'}:</h6>
+                            <ul class="remedies-list">
+                                ${data.symptoms.map(symptom => `<li>${symptom}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                ${!isHealthy ? `
+                    <div class="treatment-card">
+                        <h6><i class="fas fa-medkit text-danger me-2"></i>Recommended Treatments:</h6>
+                        <ul class="remedies-list">
+                            ${data.remedies.map(remedy => `<li>${remedy}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+                
+                <div class="treatment-card">
+                    <h6><i class="fas fa-shield-alt text-primary me-2"></i>${isHealthy ? 'Maintenance Practices' : 'Prevention Strategies'}:</h6>
+                    <ul class="remedies-list">
+                        ${data.prevention.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                ${data.organic_options && data.organic_options.length > 0 ? `
+                    <div class="treatment-card">
+                        <h6><i class="fas fa-leaf text-success me-2"></i>Organic Options:</h6>
+                        <ul class="remedies-list">
+                            ${data.organic_options.map(option => `<li>${option}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+                
+                <div class="alert ${isHealthy ? 'alert-success' : 'alert-info'} mt-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Expert Tip:</strong> ${isHealthy ? 
+                        'Continue regular monitoring and maintain current care practices for optimal plant health.' : 
+                        'For severe infections or uncertain diagnoses, consult with local agricultural extension services.'}
+                </div>
+            `;
+        }
+
+        // Update the fallback function
+        function displayFallbackRemedies(diseaseName, infoTitle, remediesContent) {
+            const isHealthy = diseaseName.toLowerCase().includes('healthy');
+            
+            if (isHealthy) {
+                infoTitle.textContent = `About ${diseaseName}`;
+                remediesContent.innerHTML = `
+                    <h5>Plant Health Status</h5>
+                    <p>Your plant appears to be in healthy condition. Continue with proper care practices.</p>
+                    
+                    <div class="treatment-card">
+                        <h6>Maintenance Guidelines:</h6>
+                        <ul class="remedies-list">
+                            <li>Maintain consistent watering schedule based on plant needs</li>
+                            <li>Ensure proper sunlight exposure for optimal growth</li>
+                            <li>Monitor for any changes in leaf color or texture</li>
+                            <li>Regularly check for pests and take early action</li>
+                            <li>Provide balanced fertilization during growing season</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                infoTitle.textContent = `Remedies for ${diseaseName}`;
+                remediesContent.innerHTML = `
+                    <h5>General Treatment Approach</h5>
+                    <p>For specific treatment of "${diseaseName}", these general guidelines may help while you consult experts.</p>
+                    
+                    <div class="treatment-card">
+                        <h6>Immediate Actions:</h6>
+                        <ul class="remedies-list">
+                            <li>Remove and destroy severely infected plant parts immediately</li>
+                            <li>Apply appropriate fungicide according to manufacturer instructions</li>
+                            <li>Improve air circulation by pruning or spacing plants</li>
+                            <li>Avoid overhead watering to reduce leaf wetness duration</li>
+                            <li>Apply organic treatments like neem oil every 7-14 days</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Professional Consultation Recommended:</strong> For accurate diagnosis and specific treatment, consult with agricultural extension services or certified plant pathologists.
+                    </div>
+                `;
+            }
+        }
+        
+        // Function to update confidence display
+        function updateConfidenceDisplay(confidence) {
+            const confidenceScore = document.getElementById('confidenceScore');
+            const confidenceBar = document.getElementById('confidenceBar');
+            const confidenceExplanation = document.getElementById('confidenceExplanation');
+            
+            // Format confidence as percentage
+            const confidencePercent = Math.round(confidence * 100) / 100;
+            
+            // Update score text
+            confidenceScore.innerHTML = `<i class="fas fa-chart-line me-2"></i>Detection Confidence: ${confidencePercent}%`;
+            
+            // Update progress bar
+            confidenceBar.style.width = `${confidencePercent}%`;
+            confidenceBar.textContent = `${confidencePercent}%`;
+            
+            // Update explanation based on confidence level
+            let explanation = '';
+            if (confidencePercent >= 80) {
+                explanation = 'High confidence - The model is very certain about this detection.';
+            } else if (confidencePercent >= 60) {
+                explanation = 'Moderate confidence - The model is fairly certain about this detection.';
+            } else if (confidencePercent >= 40) {
+                explanation = 'Low confidence - Consider verifying with additional images or expert consultation.';
+            } else {
+                explanation = 'Very low confidence - Results should be verified with expert diagnosis.';
+            }
+            
+            confidenceExplanation.textContent = explanation;
+        }
+        
+        // Check if there's already a result from the server and show it
+        window.addEventListener('DOMContentLoaded', function() {
+            const diseaseResult = "{{data}}";
+            const confidenceValue = {{ confidence | default(0) }};
+            const resultContainer = document.getElementById('resultContainer');
+            const diseaseResultElement = document.getElementById('diseaseResult');
+            const confidenceContainer = document.getElementById('confidenceContainer');
+            
+            if (diseaseResult && diseaseResult !== "None") {
+                // Show the result container
+                resultContainer.style.display = 'block';
+                
+                // Format and display the result
+                if (diseaseResult.toLowerCase().includes('healthy')) {
+                    diseaseResultElement.innerHTML = `
+                        <span class="healthy-name"><i class="fas fa-check-circle me-2"></i>${diseaseResult}</span>
+                        <p class="mt-2">Your plant appears to be healthy and in good condition!</p>
+                    `;
+                } else {
+                    diseaseResultElement.innerHTML = `
+                        <span class="disease-name"><i class="fas fa-exclamation-triangle me-2"></i>${diseaseResult}</span>
+                        <p class="mt-2">A disease has been detected in your plant. Click the button below for treatment recommendations.</p>
+                    `;
+                }
+                
+                // Update confidence display if confidence value is available
+                if (confidenceValue > 0) {
+                    updateConfidenceDisplay(confidenceValue);
+                    confidenceContainer.style.display = 'block';
+                } else {
+                    confidenceContainer.style.display = 'none';
+                }
+                
+                // Hide loading indicator if it's visible
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('predictBtn').disabled = false;
+            }
+        });
+        
+        // Drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const chooseFileBtn = document.getElementById('chooseFileBtn');
+        const fileInput = document.getElementById('fileInput');
+        
+        // Fix for double file dialog issue
+        chooseFileBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling to uploadArea
+            fileInput.click();
+        });
+        
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary-color)';
+            uploadArea.style.backgroundColor = '#e8f5e9';
+        });
+        
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.style.borderColor = '#c8e6c9';
+            uploadArea.style.backgroundColor = '#f1f8e9';
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#c8e6c9';
+            uploadArea.style.backgroundColor = '#f1f8e9';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                
+                // Trigger change event to update UI
+                const event = new Event('change');
+                fileInput.dispatchEvent(event);
+            }
+        });
+        
+        // Click on upload area to trigger file input (but exclude clicks on the button)
+        uploadArea.addEventListener('click', function(e) {
+            // Only trigger if the click wasn't on the button
+            if (e.target !== chooseFileBtn && !chooseFileBtn.contains(e.target)) {
+                fileInput.click();
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-

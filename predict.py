@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
-import numpy as np
-
+import numpy as np  
+ 
 model = tf.keras.models.load_model('models/plant.h5')
 
 # Function to preprocess the user-uploaded image
@@ -31,13 +31,12 @@ def predict_image_class(user_image_path):
                     'Tomato Leaf Mold','Tomato Septoria leaf spot','Tomato Spider mites',
                     'Tomato Target Spot','Tomato mosaic virus','Tomato Yellow Leaf Curl Virus'] 
   
-
     predicted_class = class_labels[predicted_class_index]
-    #confidence = predictions[0][predicted_class_index]
-    return predicted_class
+    confidence = float(predictions[0][predicted_class_index]) * 100  # Convert to percentage
+    
+    return predicted_class, confidence
 
 # Example usage
-#user_uploaded_image_path = 'strowberry.jpeg'
-#predicted_class, confidence = predict_image_class(user_uploaded_image_path)
-
-#print(f"Predicted Class: {predicted_class} with confidence: {confidence:.2f}")
+# user_uploaded_image_path = 'strowberry.jpeg'
+# predicted_class, confidence = predict_image_class(user_uploaded_image_path)
+# print(f"Predicted Class: {predicted_class} with confidence: {confidence:.2f}%")
